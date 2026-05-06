@@ -110,6 +110,11 @@
             margin-top: 20px;
         }
 
+        .sequence-row div {
+            flex: 1;
+            font-size: 12px;
+            color: #64748b;
+        }
     </style>
 </head>
 
@@ -151,8 +156,19 @@
 let chart;
 
 // Create sequence inputs
-const container = document.getElementById("sequence");
+const featureNames = ["Time", "Actions", "Items", "Mistakes", "Level"];
+const header = document.createElement("div");
+header.className = "sequence-row";
 
+["Time", "Actions", "Items", "Mistakes", "Level"].forEach(text => {
+    const label = document.createElement("div");
+    label.innerText = text;
+    label.style.fontWeight = "bold";
+    label.style.flex = "1";
+    header.appendChild(label);
+});
+
+container.appendChild(header);
 for (let i = 0; i < 5; i++) {
     let div = document.createElement("div");
     div.className = "sequence-row";
@@ -160,7 +176,9 @@ for (let i = 0; i < 5; i++) {
     for (let j = 0; j < 5; j++) {
         let input = document.createElement("input");
         input.type = "number";
-        input.placeholder = `t${i+1} f${j+1}`;
+
+        input.placeholder = featureNames[j];
+
         div.appendChild(input);
     }
 
