@@ -156,6 +156,7 @@
 let chart;
 
 // Create sequence inputs
+const container = document.getElementById("sequence");
 const featureNames = ["Time", "Actions", "Items", "Mistakes", "Level"];
 const header = document.createElement("div");
 header.className = "sequence-row";
@@ -189,14 +190,32 @@ for (let i = 0; i < 5; i++) {
 function fillRandom() {
     const rows = document.querySelectorAll(".sequence-row");
 
-    rows.forEach(row => {
+    let time = Math.floor(Math.random() * 50) + 30;
+    let level = Math.floor(Math.random() * 3) + 1;
+
+    rows.forEach((row, i) => {
         const inputs = row.querySelectorAll("input");
 
-        inputs[0].value = Math.floor(Math.random() * 100);
-        inputs[1].value = (Math.random() * 10).toFixed(2);
-        inputs[2].value = Math.floor(Math.random() * 50);
-        inputs[3].value = Math.floor(Math.random() * 20);
-        inputs[4].value = Math.floor(Math.random() * 10);
+        // Time increases
+        time += Math.floor(Math.random() * 10);
+
+        // Actions fluctuate but stay in range
+        let actions = (Math.random() * 6 + 3).toFixed(2);
+
+        // Items gradually increase
+        let items = Math.floor(Math.random() * 10) + i * 5;
+
+        // Mistakes vary
+        let mistakes = Math.floor(Math.random() * 5);
+
+        // Level increases slowly
+        level += Math.random() > 0.5 ? 1 : 0;
+
+        inputs[0].value = time;
+        inputs[1].value = actions;
+        inputs[2].value = items;
+        inputs[3].value = mistakes;
+        inputs[4].value = level;
     });
 }
 
